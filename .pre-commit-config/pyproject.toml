@@ -1,0 +1,31 @@
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["rolos/tests"]
+filterwarnings = [
+    "error",
+    "ignore:'crypt' is deprecated and slated for removal in Python 3.13:DeprecationWarning",
+    "ignore:`general_plain_validator_function` is deprecated:DeprecationWarning",
+    "default::ResourceWarning"
+]
+
+
+[tool.isort]
+profile = "black"
+line_length=120
+known_firstparty=["app"]
+
+[tool.black]
+line_length = 120
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+mypy_path = "/app"
+packages="rolos"
+ignore_missing_imports = true
+disallow_untyped_defs = true
+show_error_codes = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+enable_error_code = "explicit-override"
+strict = true
+pretty = true
