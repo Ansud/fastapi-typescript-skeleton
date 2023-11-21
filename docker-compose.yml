@@ -1,9 +1,9 @@
 version: "3.9"
 services:
-  db:
+  database:
     image: postgres:16.1
     ports:
-      - "127.0.0.1:15432:5432"
+      - "127.0.0.1:25432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data/pgdata
     env_file:
@@ -11,20 +11,20 @@ services:
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
 
-  backend:
-    platform: linux/amd64
-    image: 'local_api:latest'
+  application:
+    image: 'app_local:latest'
     depends_on:
-      - db
+      - database
     env_file:
       - .env
     build:
-      context: ./docker
-      dockerfile: app.dockerfile
+      context: ./
+      dockerfile: docker/app.dockerfile
     ports:
       - "8081:80"
     volumes:
-      - ./app:/app
+      - ./app:/app/app
+      - ./alembic:/app/alembic
     command: /start.sh
 
 volumes:
