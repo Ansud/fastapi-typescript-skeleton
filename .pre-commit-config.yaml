@@ -45,9 +45,7 @@ repos:
   - id: trailing-whitespace
   - id: file-contents-sorter
     args: ['--ignore-case']
-    files: requirements.in |
-     .gitignore |
-     .gitattributes
+    files: ^(requirements.in|.gitignore|.gitattributes)$
   - id: check-case-conflict
   - id: check-json
   - id: check-xml

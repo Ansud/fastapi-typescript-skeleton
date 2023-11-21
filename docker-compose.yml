@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     build:
-      context: ./backend
+      context: ./docker
       dockerfile: app.dockerfile
     ports:
       - "8081:80"
