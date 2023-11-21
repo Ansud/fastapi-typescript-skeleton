@@ -4,6 +4,9 @@ FROM ${REGISTRY}python:3.11-slim
 
 WORKDIR /app/
 
+# Use dumb-init to handle signals
+RUN apt update && apt install -y dumb-init
+
 COPY ./requirements.txt /tmp
 
 RUN python -m pip install --upgrade pip  \
@@ -20,3 +23,4 @@ COPY ./app/start.sh /start.sh
 RUN chmod +x /start.sh
 
 ENV PYTHONPATH=/app
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
