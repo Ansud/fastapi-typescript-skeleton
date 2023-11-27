@@ -6,6 +6,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class AppSettings(BaseSettings):
     LOG_LEVEL: int = logging.INFO
+    # Enable autoreload for FastAPI
+    DEBUG_MODE: bool = False
+
+    DASH_PREFIX: str = "/analyzer"
 
     POSTGRES_SERVER: str
     POSTGRES_USER: str
