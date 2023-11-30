@@ -18,14 +18,28 @@ services:
     env_file:
       - .env_local
     build:
-      context: ./
-      dockerfile: docker/app.dockerfile
+      context: ./backend
+      dockerfile: ../docker/app.dockerfile
+    ports:
+      - "8090:80"
+    volumes:
+      - ./backend/app:/app/app
+      - ./backend/alembic:/app/alembic
+    command: /start.sh
+
+  webapp:
+    image: 'webapp_local:latest'
+    depends_on:
+      - application
+    env_file:
+      - .env_local
+    build:
+      context: ./webapp
+      dockerfile: ../docker/webapp.dockerfile
     ports:
       - "8080:80"
     volumes:
-      - ./app:/app/app
-      - ./alembic:/app/alembic
-    command: /start.sh
+      - ./webapp:/webapp
 
 volumes:
   db-data:

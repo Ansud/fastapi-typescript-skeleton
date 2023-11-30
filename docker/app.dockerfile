@@ -1,6 +1,4 @@
-ARG REGISTRY=""
-
-FROM ${REGISTRY}python:3.11-slim
+FROM python:3.11-slim
 
 WORKDIR /app/
 
@@ -14,12 +12,12 @@ RUN python -m pip install --upgrade pip  \
     && pip-sync /tmp/requirements.txt
 
 # Build directory structure
-COPY ./app /app/app
-COPY ./alembic.ini /app
-COPY ./alembic /app/alembic
+COPY app /app/app
+COPY alembic.ini /app
+COPY alembic /app/alembic
 
 # Add trampoline
-COPY ./app/start.sh /start.sh
+COPY app/start.sh /start.sh
 RUN chmod +x /start.sh
 
 ENV PYTHONPATH=/app
